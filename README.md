@@ -281,7 +281,7 @@ Once you have made your changes, run the code locally and verify that you pass a
 
 First, save your implementation of multithreading the `b` loop the same way you saved the baseline. You may need it later. Then revert to the baseline implementation you saved earlier.
 
-Modify the code to add multithreading to the `n` loop and run it again. You can do this by adding `#pragma omp prallel for` on the line before the `n` for loop. When your code finishes running, you will notice that you failed multiple regression tests. This is because by parallelizing the `n` loop, multiple threads attempt to write to the same location in `grads_out`.
+Modify the code to add multithreading to the `n` loop. You can do this by adding `#pragma omp prallel for` on the line before the `n` for loop. You'll also have to additionally modify the loop condition as it is too complext for openmp. Create an int called `minn` and set it to the minimum between `nn` + `BLOCK_SIZE` and `out.size.x`. Then change your loop condition to `n < minn`. Once you make these changes, run the code again. When your code finishes running, you will notice that you failed multiple regression tests. This is because by parallelizing the `n` loop, multiple threads attempt to write to the same location in `grads_out`.
 
 We will fix this in two stages:
 
