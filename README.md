@@ -247,6 +247,8 @@ look at `regressions.out` for a full report.
 **Note** Regressions are always built without optimizations (`-O0`) to make
 them debuggable.
 
+Now submit to the autograder to gather the baseline (single threaded) results.
+
 **Note** You will want to save the output of benchmark.csv from this run as the single threaded time for the worksheet.
 
 #### nn Loop
@@ -299,7 +301,7 @@ Once you have made your changes, run the code locally and verify that you pass a
 
 First, save your implementation of multithreading the `n` loop the same way you saved the baseline. You may need it later. Then revert to the baseline implementation you saved earlier.
 
-Modify the code to add multithreading to the `b` loop and run it again. You can do this by adding `#pragma omp prallel for` on the line before the `b` for loop. You will notice that you passed the regressions test! There is no need to fix any race condition here as each thread is accumulating its result into a different address of grads_out.
+Modify the code to add multithreading to the `b` loop and run it again. You can do this by adding `#pragma omp prallel for` on the line before the `i` for loop. You will notice that you passed the regressions test! There is no need to fix any race condition here as each thread is accumulating its result into a different address of grads_out.
 
 Once you have made your changes, run the code locally and verify that you pass all 21 regression tests. If you do not pass, refer back to the lecture slides, discussion slides, example in `exmaple/stabilize.cpp` lines 330 - 372, and help from the staff during office hours or lab hours. Once you have verified that your code is correct and passes the regression tests, submit to the autograder. You will want to save the resulting benchmark.csv file for the worksheet.
 
@@ -327,8 +329,10 @@ First, copy the function from
 `opt_cnn.hpp`.  Make it a method of the `opt_fc_layer` class.
 
 Similar to Tier 1, you will have to apply multithreading, one loop at
-the time, on `b`, `n`, and `i` loops.  Make a note of the speedups
+the time, on `n` and `i` loops.  Make a note of the speedups
 achieved in each case for the worksheet.
+
+**Note** You don't have to fill out the `b` loop on the worksheet. It'll be a good exercise to think about why parallelizing the `b` loop may not make as much sense as parallelizing the `n` and `i` loops.
 
 If you do that successfully, your code should pass Tier 2.  The
 precise target for the speedup is listed in gradescope output.
