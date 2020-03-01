@@ -257,7 +257,7 @@ First, make a copy of the baseline implementation of `fc_layer_t::calc_grads()`,
 
 Then change OMP_NUM_THREADS to 2 in config.env
 
-Modify the code to add multithreading to the `nn` loop and run it again. You can do this by adding `#pragma omp prallel for` on the line before the `nn` for loop. When your code finishes running, you will notice that you failed multiple regression tests. This is because by parallelizing the `nn` loop, multiple threads attempt to write to the same location in `grads_out`.
+Modify the code to add multithreading to the `nn` loop and run it again. You can do this by adding `#pragma omp parallel for` on the line before the `nn` for loop. When your code finishes running, you will notice that you failed multiple regression tests. This is because by parallelizing the `nn` loop, multiple threads attempt to write to the same location in `grads_out`.
 
 We will fix this in two stages:
 
