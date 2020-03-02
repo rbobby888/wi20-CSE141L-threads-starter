@@ -275,7 +275,7 @@ Once you have made your changes, run the code locally and verify that you pass a
 
 First, save your implementation of multithreading the `nn` loop the same way you saved the baseline. You may need it later. Then revert to the baseline implementation you saved earlier.
 
-Modify the code to add multithreading to the `b` loop and run it again. You can do this by adding `#pragma omp prallel for` on the line before the `b` for loop. You will notice that you passed the regressions test! There is no need to fix any race condition here as each thread is accumulating its result into a different address of grads_out.
+Modify the code to add multithreading to the `b` loop and run it again. You can do this by adding `#pragma omp parallel for` on the line before the `b` for loop. You will notice that you passed the regressions test! There is no need to fix any race condition here as each thread is accumulating its result into a different address of grads_out.
 
 Once you have made your changes, run the code locally and verify that you pass all 21 regression tests. If you do not pass, refer back to the lecture slides, discussion slides, example in `exmaple/stabilize.cpp` lines 330 - 372, and help from the staff during office hours or lab hours. Once you have verified that your code is correct and passes the regression tests, submit to the autograder. You will want to save the resulting benchmark.csv file for the worksheet.
 
@@ -283,7 +283,7 @@ Once you have made your changes, run the code locally and verify that you pass a
 
 First, save your implementation of multithreading the `b` loop the same way you saved the baseline. You may need it later. Then revert to the baseline implementation you saved earlier.
 
-Modify the code to add multithreading to the `n` loop. You can do this by adding `#pragma omp prallel for` on the line before the `n` for loop. You'll also have to additionally modify the loop condition as it is too complext for openmp. Create an int called `minn` and set it to the minimum between `nn` + `BLOCK_SIZE` and `out.size.x`. Then change your loop condition to `n < minn`. Once you make these changes, run the code again. When your code finishes running, you will notice that you failed multiple regression tests. This is because by parallelizing the `n` loop, multiple threads attempt to write to the same location in `grads_out`.
+Modify the code to add multithreading to the `n` loop. You can do this by adding `#pragma omp parallel for` on the line before the `n` for loop. You'll also have to additionally modify the loop condition as it is too complext for openmp. Create an int called `minn` and set it to the minimum between `nn` + `BLOCK_SIZE` and `out.size.x`. Then change your loop condition to `n < minn`. Once you make these changes, run the code again. When your code finishes running, you will notice that you failed multiple regression tests. This is because by parallelizing the `n` loop, multiple threads attempt to write to the same location in `grads_out`.
 
 We will fix this in two stages:
 
@@ -301,7 +301,7 @@ Once you have made your changes, run the code locally and verify that you pass a
 
 First, save your implementation of multithreading the `n` loop the same way you saved the baseline. You may need it later. Then revert to the baseline implementation you saved earlier.
 
-Modify the code to add multithreading to the `b` loop and run it again. You can do this by adding `#pragma omp prallel for` on the line before the `i` for loop. You will notice that you passed the regressions test! There is no need to fix any race condition here as each thread is accumulating its result into a different address of grads_out.
+Modify the code to add multithreading to the `i` loop and run it again. You can do this by adding `#pragma omp parallel for` on the line before the `i` for loop. You will notice that you passed the regressions test! There is no need to fix any race condition here as each thread is accumulating its result into a different address of grads_out.
 
 Once you have made your changes, run the code locally and verify that you pass all 21 regression tests. If you do not pass, refer back to the lecture slides, discussion slides, example in `exmaple/stabilize.cpp` lines 330 - 372, and help from the staff during office hours or lab hours. Once you have verified that your code is correct and passes the regression tests, submit to the autograder. You will want to save the resulting benchmark.csv file for the worksheet.
 
